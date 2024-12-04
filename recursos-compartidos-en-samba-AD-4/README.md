@@ -33,7 +33,6 @@ Podéis basaros en la estructura creada para la Actividad 1.2.
 
 Crear los tres grupos: Profesores, Alumnos y Directores.
 
-```bash
 sudo samba-tool group add Profesores
 sudo samba-tool group add Alumnos
 sudo samba-tool group add Directores
@@ -49,7 +48,6 @@ Ahora, crearemos usuarios para cada grupo, cumpliendo con los siguientes requisi
 
 - **Usuario 1** (Pertenecerá a los 3 grupos: Profesores, Alumnos, Directores):
 
-```bash
 sudo samba-tool user add usuario1 --given-name="Usuario" --surname="Uno" --password=contraseña
 sudo samba-tool group addmembers Profesores usuario1
 sudo samba-tool group addmembers Alumnos usuario1
@@ -57,37 +55,31 @@ sudo samba-tool group addmembers Directores usuario1
 
 - **Usuario 2** (Pertenecerá solo al grupo Profesores):
 
-```bash
 sudo samba-tool user add usuario2 --given-name="Usuario" --surname="Dos" --password=contraseña
 sudo samba-tool group addmembers Profesores usuario2
 
 - **Usuario 3** (Pertenecerá solo al grupo Alumnos):
 
-```bash
 sudo samba-tool user add usuario3 --given-name="Usuario" --surname="Tres" --password=contraseña
 sudo samba-tool group addmembers Alumnos usuario3
 
 - **Usuario 4** (Pertenecerá solo al grupo Directores):
 
-```bash
 sudo samba-tool user add usuario4 --given-name="Usuario" --surname="Cuatro" --password=contraseña
 sudo samba-tool group addmembers Directores usuario4
 
 - **Usuario 5** (Pertenecerá solo al grupo Profesores):
 
-```bash
 sudo samba-tool user add usuario5 --given-name="Usuario" --surname="Cinco" --password=contraseña
 sudo samba-tool group addmembers Profesores usuario5
 
 - **Usuario 6** (Pertenecerá solo al grupo Alumnos):
 
-```bash
 sudo samba-tool user add usuario6 --given-name="Usuario" --surname="Seis" --password=contraseña
 sudo samba-tool group addmembers Alumnos usuario6
 
 ### 6. Verificación de la membresía de los grupos
 
-```bash
 sudo samba-tool group listmembers Profesores
 sudo samba-tool group listmembers Alumnos
 sudo samba-tool group listmembers Directores
@@ -98,14 +90,11 @@ sudo samba-tool group listmembers Directores
 
 Una vez que todo esté configurado, puedes listar los usuarios del dominio para asegurarte de que se han creado correctamente:
 
-```bash
 sudo samba-tool user list
 
 ![img](img/5.png)
 
 
-markdown
-Copiar código
 ## 3. Recursos compartidos
 
 Deberéis crear 3 recursos compartidos mediante Samba en Ubuntu Server. La ubicación base de los recursos compartidos será una carpeta en el directorio raíz que deberéis levantar como vuestras iniciales tras el acrónimo "NAS". En este caso, la ubicación será `/NASdgc`.
@@ -124,7 +113,6 @@ Sería interesante que el usuario administrador (supoño que así chamáchedes a
 
 Primero, vamos a crear la carpeta **RCafl**, que será el directorio raíz de los recursos compartidos, y luego las subcarpetas **profesores**, **alumnos** y **directores**.
 
-```bash
 mkdir RCafl
 sudo chmod -R 775 RCafl
 sudo chown -R root:"domain users" RCafl
@@ -139,7 +127,6 @@ Ahora, necesitas configurar Samba para compartir estos directorios con los grupo
 
 #### Paso 1: Editar el archivo de configuración de Samba
 
-```bash
 sudo nano /etc/samba/smb.conf
 
 ![img](img/6.png)
@@ -150,7 +137,6 @@ Es necesario asegurarse de que las carpetas tengan los permisos correctos, para 
 
 #### Paso 1: Asignar los permisos a las carpetas
 
-```bash
 sudo chown :Profesores /RCafl/profesores
 sudo chown :Alumnos /RCafl/alumnos
 sudo chown :Directores /RCafl/directores
@@ -161,7 +147,6 @@ sudo chown :Directores /RCafl/directores
 
 Una vez que hayas editado el archivo de configuración, reinicia el servicio de Samba para que los cambios surtan efecto:
 
-```bash
 sudo systemctl restart smbd
 
 ![img](img/8.png)
